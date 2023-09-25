@@ -1,0 +1,60 @@
+import pandas as pd
+import os
+# 读取剪切板
+# data1 = pd.read_clipboard()
+
+
+""" pd.read_excel
+sheet_name = 0 ,str int list or None
+读取excel的工作表名字
+header = 0，int，list of int，default 0
+设置列名的行数
+usecols = None int，str，list = like，or callable
+设置需要调用的列数或列名
+skiprows = None，list-like
+设置读取数据时，跳过第几行
+"""
+
+data2 = pd.read_excel(r"E:\python\file\标准.xlsx", usecols=range(1, 4))
+data3 = pd.read_excel(r"E:\python\file\标准.xlsx", usecols=[0, 4])
+print(data2)
+print(data3)
+
+# 数据的存储 dataframe的点方法
+# data2.to_excel(r"E:\python\file\321.xlsx", index=False, header=True)
+
+# 新增：目录和文件的操作
+# 获取当前路径
+path = os.getcwd()
+print(path)
+# 获取上级目录
+path2 = os.path.dirname(path)
+print(path2)
+# 更改工作路径 os.chdir(path_name)
+os.chdir(r"E:\python\file")
+
+# 切换工作路径后的当前工作路径
+path3 = os.getcwd()
+print(path3)
+
+p = os.listdir(path3)
+print(p)
+
+for file_name in p:
+    print(pd.read_excel(file_name))
+
+# dirpath dirnames filenames
+for i in os.walk(path3):
+    print(i)
+
+for dirpath, dirnames, filenames in os.walk(path3):
+    for file_name in filenames:
+        print(pd.read_excel(file_name))
+
+# 读取数据，查看长度，超过一行视为错误数据，打印路径
+for file_name in p:
+    if len(pd.read_excel(file_name)) != 2:
+        print(file_name.split(".")[0], "*"*10, len(pd.read_excel(file_name)))
+
+
+
